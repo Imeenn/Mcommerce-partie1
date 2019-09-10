@@ -2,6 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,6 +30,46 @@ public class ProductController {
     private ProductDao productDao;
 
 
+    
+    @RequestMapping(value = "/ProduitsTrier", method = RequestMethod.GET)
+
+   public List<Product> trierProduitsParOrdreAlphabetique ()
+   {
+    	List<Product> list=new ArrayList<Product>();
+    	productDao.trierListe().forEach(list::add);
+    	return list;
+    	
+   }
+    
+    
+    
+    
+    
+    
+    
+    @RequestMapping(value = "/AdminProduits", method = RequestMethod.GET)
+    public List<String> calculerMargeProduit ()
+    {
+    	List<String> l=new ArrayList<>();
+    	for (int i=0;i<productDao.findAll().size();i++)
+    	{
+    		float x=productDao.findAll().get(i).getPrix()-productDao.findAll().get(i).getPrixAchat();
+    		l.add(productDao.findAll().get(i)+":"+x);
+    		
+    	}
+    	return l;
+    	
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //Récupérer la liste des produits
 
     @RequestMapping(value = "/Produits", method = RequestMethod.GET)
@@ -69,6 +111,10 @@ public class ProductController {
 
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
 
+    	
+    	if(product.getPrix()==0)  throw new ProduitGratuitException("Le produit avec l'id " + product.getId() + " a un prix de vente = 0.");
+    		
+    	
         Product productAdded =  productDao.save(product);
 
         if (productAdded == null)
@@ -81,6 +127,7 @@ public class ProductController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    	
     }
 
     @DeleteMapping (value = "/Produits/{id}")
