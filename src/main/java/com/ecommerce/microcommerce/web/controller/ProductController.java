@@ -47,9 +47,8 @@ public class ProductController {
     }
     
     
-    
+    //la liste des produits tries par nom de produit
     @RequestMapping(value = "/ProduitsTrier", method = RequestMethod.GET)
-
    public List<Product> trierProduitsParOrdreAlphabetique ()
    {
     	List<Product> list=new ArrayList<Product>();
