@@ -111,6 +111,7 @@ public class ProductController {
 
 
     //ajouter un produit
+    //appel d exception
     @PostMapping(value = "/Produits")
 
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
