@@ -116,7 +116,7 @@ public class ProductController {
 
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
 
-    	
+    	//verifier si le prix=0
     	if(product.getPrix()==0)  throw new ProduitGratuitException("Le produit avec l'id " + product.getId() + " a un prix de vente = 0.");
     		
     	
