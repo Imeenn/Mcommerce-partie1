@@ -39,7 +39,7 @@ public class ProductController {
     	for (int i=0;i<productDao.findAll().size();i++)
     	{
     		float x=productDao.findAll().get(i).getPrix()-productDao.findAll().get(i).getPrixAchat();
-    		l.add(productDao.findAll().get(i)+" : "+x);
+    		list.add(productDao.findAll().get(i)+" : "+x);
     		
     	}
     	return list;
