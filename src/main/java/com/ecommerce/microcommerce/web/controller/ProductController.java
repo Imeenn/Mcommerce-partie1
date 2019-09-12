@@ -52,7 +52,7 @@ public class ProductController {
    public List<Product> trierProduitsParOrdreAlphabetique ()
    {
     	List<Product> list=new ArrayList<Product>();
-    	productDao.trierListe().forEach(list::add);
+    	productDao.findAllByOrderByNomAsc().forEach(list::add);
     	return list;
     	
    }
