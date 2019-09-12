@@ -156,6 +156,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/test/produits/400",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"test",
+						"produits",
+						"400"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
